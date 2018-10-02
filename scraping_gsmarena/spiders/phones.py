@@ -9,8 +9,9 @@ class PhonesSpider(Spider):
     start_urls = ['https://gsmarena.com/makers.php3']
 
     def parse(self, response):
-        url_brands = response.xpath('//td/a/@href').extract()
-        for url in url_brands[0:1]:
+        brands = response.xpath('//div[@class="st-text"]//td')
+        for brand in brands:
+            url = brand.xpath('.//a/@href').extract_first()
             url_brand = response.urljoin(url)
             yield Request(url_brand,
                           callback=self.parse_brand)
