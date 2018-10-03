@@ -4,11 +4,12 @@
 #
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
+from scrapy import Item, Field
 
-import scrapy
 
-
-class ScrapingGsmarenaItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class PhoneItem(Item):
+    modelname = Field()
+    released = Field()
+    body = Field()
+    os = Field()
+    storage = Field()

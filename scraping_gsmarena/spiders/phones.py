@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from scrapy import Spider
 from scrapy.http import Request
+from scraping_gsmarena.items import PhoneItem
 
 
 class PhonesSpider(Spider):
@@ -42,8 +43,12 @@ class PhonesSpider(Spider):
         os = response.xpath(os_sel).extract_first()
         storage_sel = '//*[@data-spec="storage-hl"]/text()'
         storage = response.xpath(storage_sel).extract_first()
-        yield {'Model Name': modelname,
-               'Released In': released,
-               'Body': body,
-               'OS': os,
-               'Storage': storage}
+        
+        item = PhoneItem()
+        item['modelname'] = modelname
+        item['released'] = released
+        item['body'] = body
+        item['os'] = os
+        item['storage'] = storage
+
+        return item
